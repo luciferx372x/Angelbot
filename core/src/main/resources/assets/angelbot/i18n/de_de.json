@@ -124,6 +124,11 @@
     "notification": {
       "title": "Angelbot"
     },
+    "permissions": {
+      "angelbot": {
+        "name": "Angelbot: Angeln, Essen und Laufen"
+      }
+    },
     "debug": {
       "bite": "[Angelbot] Biss erkannt (Sinkgeschwindigkeit %s), Reaktion in %s Ticks",
       "nearMiss": "[Angelbot] Schwimmer sinkt mit %s (Schwelle -%s)"
@@ -132,6 +137,7 @@
       "started": "Gestartet. Halte eine Angel in der Hand.",
       "alreadyRunning": "Der Bot läuft bereits.",
       "addonDisabled": "Das Addon ist in den Einstellungen ausgeschaltet.",
+      "notPermitted": "Dieser Server hat den Angelbot nicht erlaubt. Ein Server muss zuerst die Berechtigung \"angelbot\" (LabyMod-Server-API) aktivieren.",
       "notInGame": "Du musst zuerst eine Welt betreten.",
       "noRod": "Halte eine Angel in der Haupt- oder Nebenhand.",
       "paused": "Pausiert: Ein Bildschirm ist offen. Tipp: Mit F3+P pausiert Minecraft nicht mehr beim Fensterwechsel.",
@@ -152,6 +158,7 @@
         "walkFailed": "Gestoppt: Der Weg zur nächsten Stelle ist versperrt oder der Bot steckt fest. Bisse: %s",
         "walkDanger": "Laufen abgebrochen: Schaden, Wasser oder zu wenig Leben. Bisse: %s",
         "addonDisabled": "Gestoppt: Das Addon wurde ausgeschaltet. Bisse: %s",
+        "notPermitted": "Gestoppt: Dieser Server erlaubt den Angelbot nicht. Bisse: %s",
         "error": "Gestoppt wegen eines internen Fehlers (siehe latest.log). Bisse: %s"
       },
       "status": "Status: %s | Bisse: %s | Laufzeit: %s",

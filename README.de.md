@@ -11,8 +11,10 @@ Stelle leer ist.
 - **Sprachen:** Deutsch und Englisch (richtet sich nach der Minecraft-Sprache). [English version](README.md)
 
 > **Hinweis zu Servern:** Auf vielen Servern ist automatisches Angeln verboten, automatisches Laufen erst
-> recht, und beides kann zum Bann führen. Auf dem eigenen Server und in Einzelspieler-Welten ist es
-> unproblematisch. Die Reaktionszeiten sind zufällig, ein Schutz vor Erkennung ist das aber nicht.
+> recht, und beides kann zum Bann führen. Deshalb hält sich das Addon an die LabyMod-Server-API: In
+> Einzelspieler-Welten funktioniert es immer, auf einem Server nur, wenn der Server die Berechtigung
+> **`angelbot`** aktiviert hat (standardmäßig aus, siehe [Server-Berechtigung](#server-berechtigung)).
+> Die Reaktionszeiten sind zufällig, ein Schutz vor Erkennung ist das aber nicht.
 
 ## Installation
 
@@ -146,6 +148,20 @@ gehen). Das Laufen wurde nur gegen eine simulierte Welt getestet, nicht auf jede
 es zuerst im Einzelspieler aus und bleibe am Anfang in der Nähe. Die Tasten werden wie bei einem echten
 Spieler gedrückt, das Spielfenster muss also im Vordergrund bleiben (siehe F3 + P oben).
 
+## Server-Berechtigung
+
+Das Addon meldet die Berechtigung **`angelbot`** in der LabyMod-Server-API an. Sie ist **standardmäßig aus**
+und entscheidet, ob der Bot überhaupt laufen darf:
+
+- **Einzelspieler (kein Server):** immer erlaubt.
+- **Auf einem Server:** nur, wenn der Server die Berechtigung `angelbot` aktiviert hat. Ohne sie zeigen
+  `/angelbot on` und die Umschalttaste nur eine Meldung. Ein bereits laufender Bot hält an, sobald du einen
+  solchen Server betrittst oder der Server die Berechtigung zurücknimmt.
+
+Spieler können die Berechtigung nicht selbst einschalten, das kann nur der Server. Wer einen Server
+betreibt und den Bot erlauben will, aktiviert die Berechtigung `angelbot` für seine Spieler über die
+LabyMod-Server-API.
+
 ## So erkennt der Bot den Biss
 
 Beißt ein Fisch, zieht Minecraft den Schwimmer mit einem Ruck nach unten (etwa 0,24 bis 0,40 Blöcke
@@ -231,6 +247,7 @@ foreach ($t in "FishingBotTest", "WalkTest", "FeaturesTest") { & "$env:JAVA_HOME
 | Addon fehlt in der Liste | Falsche Jar (nur `-release.jar`), falscher Ordner (siehe Installation), Minecraft-Version außerhalb 26.1 bis 26.3, Client nicht neu gestartet |
 | `/angelbot` tut nichts | Addon in den Einstellungen ausgeschaltet; Meldung oben rechts beachten |
 | Bot startet nicht | Keine Angel in der Haupt- oder Nebenhand, oder keine Welt geladen |
+| Bot startet auf einem Server nicht | Der Server hat die Berechtigung `angelbot` (LabyMod-Server-API) nicht aktiviert; im Einzelspieler geht es immer |
 | Bot ruht | Ein Bildschirm ist offen (auch das Pausenmenü nach einem Fensterwechsel) |
 | Bot wirft immer wieder neu aus | Schwimmer landet nicht im Wasser; anders zielen |
 | Meldung „Server reagiert nicht“ | Auf dem Server ist Angeln eingeschränkt oder die Verbindung hängt |

@@ -124,6 +124,11 @@
     "notification": {
       "title": "Angelbot"
     },
+    "permissions": {
+      "angelbot": {
+        "name": "Angelbot: fishing, eating and walking"
+      }
+    },
     "debug": {
       "bite": "[Angelbot] Bite detected (sink speed %s), reacting in %s ticks",
       "nearMiss": "[Angelbot] Bobber sinks at %s (threshold -%s)"
@@ -132,6 +137,7 @@
       "started": "Started. Keep a fishing rod in your hand.",
       "alreadyRunning": "The bot is already running.",
       "addonDisabled": "The addon is switched off in the settings.",
+      "notPermitted": "This server has not allowed the Angelbot. A server has to enable the \"angelbot\" permission (LabyMod Server API) first.",
       "notInGame": "You have to be in a world first.",
       "noRod": "Hold a fishing rod in your main hand or off hand.",
       "paused": "Paused: a screen is open. Tip: F3+P stops Minecraft from pausing when the window loses focus.",
@@ -152,6 +158,7 @@
         "walkFailed": "Stopped: the way to the next spot is blocked or the bot got stuck. Bites: %s",
         "walkDanger": "Stopped walking: damage, water or low health. Bites: %s",
         "addonDisabled": "Stopped: the addon was switched off. Bites: %s",
+        "notPermitted": "Stopped: this server does not allow the Angelbot. Bites: %s",
         "error": "Stopped because of an internal error (see latest.log). Bites: %s"
       },
       "status": "Status: %s | Bites: %s | Runtime: %s",

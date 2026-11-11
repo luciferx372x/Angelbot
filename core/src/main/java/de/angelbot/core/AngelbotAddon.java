@@ -15,6 +15,14 @@ import net.labymod.api.models.addon.annotation.AddonMain;
 @AddonMain
 public class AngelbotAddon extends LabyAddon<AngelbotConfiguration> {
 
+  /**
+   * Server-API-Berechtigung, mit der ein Server den Bot erlaubt. Der Bot angelt, isst, tauscht
+   * Inventarplätze und läuft für den Spieler, das gilt auf vielen Servern als unerlaubte
+   * Client-Änderung. Deshalb ist die Berechtigung auf Servern standardmäßig aus (Vorgabe der
+   * LabyMod-Prüfung). Im Einzelspieler, ohne Verbindung zu einem Server, gilt sie als erlaubt.
+   */
+  public static final String PERMISSION = "angelbot";
+
   private FishingController controller;
   private BotMessages messages;
   private FishingBot bot;
@@ -23,6 +31,9 @@ public class AngelbotAddon extends LabyAddon<AngelbotConfiguration> {
   @Override
   protected void enable() {
     this.registerSettingCategory();
+
+    // Aus als Standard: Nur ein Server kann den Bot erlauben, der Spieler kann es nicht erzwingen.
+    this.labyAPI().permissionRegistry().register(PERMISSION, false);
 
     DefaultReferenceStorage storage = this.referenceStorageAccessor();
     this.controller = storage.fishingController();
@@ -58,6 +69,14 @@ public class AngelbotAddon extends LabyAddon<AngelbotConfiguration> {
     return this.spotStore;
   }
 
+  /**
+   * Der Bot darf laufen: Der Spieler ist in keinem Server (Einzelspieler) oder der Server hat die
+   * Berechtigung {@link #PERMISSION} erlaubt.
+   */
+  public boolean isPermitted() {
+    return this.labyAPI().permissionRegistry().isPermissionEnabled(PERMISSION);
+  }
+
   /** Eine Meldung des Servers (Chat oder Aktionsleiste) ist eingetroffen. */
   public void onServerMessage(String text) {
     // Eigene Zeilen des Addons (Debug-Ausgabe, Befehle) zählen nicht.
@@ -75,6 +94,8 @@ public class AngelbotAddon extends LabyAddon<AngelbotConfiguration> {
   public void startBot() {
     if (!this.configuration().enabled().get()) {
       this.messages.show("angelbot.messages.addonDisabled");
+    } else if (!this.isPermitted()) {
+      this.messages.show("angelbot.messages.notPermitted");
     } else if (this.bot.isRunning()) {
       this.messages.show("angelbot.messages.alreadyRunning");
     } else if (!this.controller.isInGame()) {
@@ -104,6 +125,13 @@ public class AngelbotAddon extends LabyAddon<AngelbotConfiguration> {
   public void onTick() {
     if (!this.configuration().enabled().get()) {
       this.bot.stop(StopReason.ADDON_DISABLED);
+      return;
+    }
+
+    // Auch während der Bot läuft: Wechselt der Spieler auf einen Server, der den Bot nicht erlaubt,
+    // oder entzieht der Server die Berechtigung, hält der Bot sofort an.
+    if (!this.isPermitted()) {
+      this.bot.stop(StopReason.NOT_PERMITTED);
       return;
     }
 

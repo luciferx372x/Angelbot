@@ -599,5 +599,15 @@ public class FishingBotTest {
 
     bot.start();
     check("Neustart möglich", bot.isRunning() && bot.bites() == 0);
+
+    // Nimmt der Server die Berechtigung "angelbot" zurück (oder wechselt der Spieler auf einen
+    // Server, der den Bot nicht erlaubt), hält AngelbotAddon.onTick() den Bot mit diesem Grund an.
+    bot.stop(StopReason.NOT_PERMITTED);
+    check("stop(NOT_PERMITTED): Grund wird gemeldet", recorder.reason == StopReason.NOT_PERMITTED && recorder.stops == 2);
+    check("stop(NOT_PERMITTED): Bot aus", !bot.isRunning());
+    check("NOT_PERMITTED: Schlüssel der Übersetzung", "notPermitted".equals(StopReason.NOT_PERMITTED.key()));
+    int callsAfterDenied = game.useCalls;
+    run(game, bot, 200);
+    check("NOT_PERMITTED: danach keine Aktionen mehr", game.useCalls == callsAfterDenied);
   }
 }

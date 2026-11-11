@@ -18,3 +18,6 @@ First release.
   on, walks to the next saved spot (`/angelbot spot`, `/angelbot zone`). Walking avoids water, lava and other
   dangers and stops on damage, when stuck or when there is no way.
 - Every setting can be changed in game. English and German translations.
+- Server API permission `angelbot` (off by default): on a server the bot only runs when the server has
+  enabled it, and it stops when the permission is missing or withdrawn. In single player it is always
+  allowed.

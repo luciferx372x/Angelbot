@@ -38,7 +38,8 @@ public class AngelbotChatListener {
       return;
     }
 
-    Component component = event.message();
+    // getMessage() statt message(): Letzteres ist veraltet und zum Entfernen vorgemerkt.
+    Component component = event.getMessage();
     if (component == null) {
       return;
     }

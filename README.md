@@ -10,8 +10,9 @@ that the current spot is empty.
 - **Languages:** English and German (follows the Minecraft language). [Deutsche Version](README.de.md)
 
 > **Servers:** Automatic fishing, and even more so automatic walking, is forbidden on many servers and can
-> get you banned. Use it in single player or where it is allowed. The random delays are not a protection
-> against detection.
+> get you banned. That is why the addon follows the LabyMod Server API: in single player it always works,
+> on a server it only runs when the server has enabled the permission **`angelbot`** (off by default, see
+> [Server permission](#server-permission)). The random delays are not a protection against detection.
 
 ## Install
 
@@ -133,6 +134,19 @@ against a simulated world, not on every kind of terrain and server. Try it in si
 close to the bot at the beginning. Keys are pressed like a real player would, so the game window has to stay
 focused (see F3 + P above).
 
+## Server permission
+
+The addon registers the permission **`angelbot`** in the LabyMod Server API. It is **off by default** and
+decides whether the bot may run at all:
+
+- **Single player (no server):** always allowed.
+- **On a server:** only when the server has enabled the permission `angelbot`. Without it, `/angelbot on` and
+  the toggle key only show a message. A bot that is already running stops as soon as you join such a
+  server or the server withdraws the permission.
+
+Players cannot turn the permission on themselves, only the server can. Server owners who want to allow the
+bot enable the permission `angelbot` for their players through the LabyMod Server API.
+
 ## How the bite is detected
 
 When a fish bites, Minecraft pulls the bobber down with a jerk (about 0.24 to 0.40 blocks per tick).
@@ -213,6 +227,7 @@ for t in FishingBotTest WalkTest FeaturesTest; do "$JAVA_HOME/bin/java" -cp test
 | Addon not in the list | Wrong jar (only `-release.jar`), wrong folder (see Install), Minecraft version outside 26.1 to 26.3, client not restarted |
 | `/angelbot` does nothing | Addon switched off in the settings; look at the notification at the top right |
 | Bot does not start | No fishing rod in main or off hand, or no world loaded |
+| Bot does not start on a server | The server has not enabled the permission `angelbot` (LabyMod Server API); in single player it always works |
 | Bot rests | A screen is open (also the pause menu after switching windows) |
 | Bot keeps casting again | The bobber does not land in water; aim differently |
 | "Server does not react" | Fishing is restricted on the server or the connection hangs |

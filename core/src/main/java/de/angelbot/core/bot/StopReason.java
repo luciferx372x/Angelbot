@@ -39,6 +39,9 @@ public enum StopReason {
   /** Das Addon wurde in den Einstellungen ausgeschaltet. */
   ADDON_DISABLED("addonDisabled"),
 
+  /** Der Server hat den Bot nicht erlaubt (Server-API-Berechtigung "angelbot" ist aus). */
+  NOT_PERMITTED("notPermitted"),
+
   /** Ein unerwarteter Fehler ist aufgetreten (Einzelheiten stehen im Spiel-Log). */
   ERROR("error");
 
