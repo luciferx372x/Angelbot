@@ -1,0 +1,105 @@
+{
+  "angelbot": {
+    "settings": {
+      "name": "Angelbot",
+      "enabled": {
+        "name": "Aktiviert",
+        "description": "Schaltet das ganze Addon ein oder aus."
+      },
+      "toggleKey": {
+        "name": "Taste zum Ein- und Ausschalten",
+        "description": "Startet und stoppt den Bot (nicht bei geöffnetem Chat oder Inventar). Alternativ gibt es den Befehl /angelbot."
+      },
+      "reactionMinMs": {
+        "name": "Reaktionszeit, kürzeste (ms)",
+        "description": "Kürzeste Wartezeit nach dem Biss, bevor eingeholt wird. Der Fisch bleibt nur 1 bis 2 Sekunden am Haken."
+      },
+      "reactionMaxMs": {
+        "name": "Reaktionszeit, längste (ms)",
+        "description": "Längste Wartezeit nach dem Biss, bevor eingeholt wird. Am besten unter etwa 600 ms bleiben, besonders bei hohem Ping."
+      },
+      "recastMinMs": {
+        "name": "Pause vor dem Auswerfen, kürzeste (ms)",
+        "description": "Kürzeste Pause zwischen dem Einholen und dem nächsten Auswerfen."
+      },
+      "recastMaxMs": {
+        "name": "Pause vor dem Auswerfen, längste (ms)",
+        "description": "Längste Pause zwischen dem Einholen und dem nächsten Auswerfen."
+      },
+      "timeoutSeconds": {
+        "name": "Zeitlimit ohne Biss (s)",
+        "description": "Beißt so lange nichts, wird die Angel eingeholt und neu ausgeworfen."
+      },
+      "pauseWhileScreenOpen": {
+        "name": "Pause bei offenem Bildschirm",
+        "description": "Der Bot ruht, solange der Chat, das Inventar oder ein Menü offen ist."
+      },
+      "stopWithoutRod": {
+        "name": "Ohne Angel abschalten",
+        "description": "Schaltet den Bot ab, wenn 10 Sekunden lang keine Angel in der Hand liegt (zum Beispiel weil sie kaputtgegangen ist)."
+      },
+      "biteThreshold": {
+        "name": "Bissschwelle",
+        "description": "Wie schnell der Schwimmer sinken muss, damit es als Biss zählt, in Hundertstel Blöcken pro Tick. Kleiner bedeutet empfindlicher. Standard: 15."
+      },
+      "settleTicks": {
+        "name": "Beruhigungszeit (Ticks)",
+        "description": "So lange muss der Schwimmer im Wasser liegen, bevor auf Bisse geachtet wird (20 Ticks = 1 Sekunde). Verhindert Fehlbisse direkt nach dem Auswerfen."
+      },
+      "debug": {
+        "name": "Debug-Ausgabe",
+        "description": "Meldet im Chat und im Spiel-Log (latest.log), wenn der Schwimmer fast die Bissschwelle erreicht. Hilft beim Feinabstimmen der Empfindlichkeit."
+      },
+      "header": {
+        "general": {
+          "name": "Allgemein"
+        },
+        "timing": {
+          "name": "Zeiten (menschliche Verzögerung)"
+        },
+        "safety": {
+          "name": "Sicherheit"
+        },
+        "detection": {
+          "name": "Bisserkennung"
+        }
+      }
+    },
+    "notification": {
+      "title": "Angelbot"
+    },
+    "debug": {
+      "bite": "[Angelbot] Biss erkannt (Sinkgeschwindigkeit %s), Reaktion in %s Ticks",
+      "nearMiss": "[Angelbot] Schwimmer sinkt mit %s (Schwelle -%s)"
+    },
+    "messages": {
+      "started": "Gestartet. Halte eine Angel in der Hand.",
+      "alreadyRunning": "Der Bot läuft bereits.",
+      "addonDisabled": "Das Addon ist in den Einstellungen ausgeschaltet.",
+      "notInGame": "Du musst zuerst eine Welt betreten.",
+      "noRod": "Halte eine Angel in der Haupt- oder Nebenhand.",
+      "paused": "Pausiert: Ein Bildschirm ist offen. Tipp: Mit F3+P pausiert Minecraft nicht mehr beim Fensterwechsel.",
+      "stopped": {
+        "manual": "Gestoppt. Bisse: %s",
+        "leftGame": "Gestoppt: Du hast die Welt verlassen. Bisse: %s",
+        "noRod": "Gestoppt: Keine Angel in der Hand. Bisse: %s",
+        "noWater": "Gestoppt: Der Schwimmer landet nicht im Wasser. Bisse: %s",
+        "noResponse": "Gestoppt: Der Server reagiert nicht auf die Angel. Bisse: %s",
+        "addonDisabled": "Gestoppt: Das Addon wurde ausgeschaltet. Bisse: %s",
+        "error": "Gestoppt wegen eines internen Fehlers (siehe latest.log). Bisse: %s"
+      },
+      "status": "Status: %s | Bisse: %s | Laufzeit: %s",
+      "statusOff": "Der Bot ist aus. Starte ihn mit /angelbot oder der Taste.",
+      "usage": "Benutzung: /angelbot [on|off|status]"
+    },
+    "state": {
+      "off": "aus",
+      "waitCast": "wartet aufs Auswerfen",
+      "castSent": "wirft aus",
+      "waitBite": "wartet auf Biss",
+      "react": "Biss erkannt",
+      "reelSent": "holt ein",
+      "paused": "pausiert (Bildschirm offen)"
+    }
+  }
+}

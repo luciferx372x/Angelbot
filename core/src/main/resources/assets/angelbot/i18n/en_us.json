@@ -1,0 +1,105 @@
+{
+  "angelbot": {
+    "settings": {
+      "name": "Angelbot",
+      "enabled": {
+        "name": "Enabled",
+        "description": "Switches the whole addon on or off."
+      },
+      "toggleKey": {
+        "name": "Toggle key",
+        "description": "Starts and stops the bot (not while a screen like chat or inventory is open). You can also use the command /angelbot."
+      },
+      "reactionMinMs": {
+        "name": "Reaction time, shortest (ms)",
+        "description": "Shortest wait after a bite before reeling in. The fish only stays on the hook for 1 to 2 seconds."
+      },
+      "reactionMaxMs": {
+        "name": "Reaction time, longest (ms)",
+        "description": "Longest wait after a bite before reeling in. Stay below about 600 ms, especially with a high ping."
+      },
+      "recastMinMs": {
+        "name": "Pause before casting, shortest (ms)",
+        "description": "Shortest pause between reeling in and the next cast."
+      },
+      "recastMaxMs": {
+        "name": "Pause before casting, longest (ms)",
+        "description": "Longest pause between reeling in and the next cast."
+      },
+      "timeoutSeconds": {
+        "name": "Timeout without a bite (s)",
+        "description": "If nothing bites for this long, the rod is reeled in and cast again."
+      },
+      "pauseWhileScreenOpen": {
+        "name": "Pause while a screen is open",
+        "description": "The bot rests while the chat, the inventory or a menu is open."
+      },
+      "stopWithoutRod": {
+        "name": "Stop without a rod",
+        "description": "Switches the bot off if no fishing rod is held for 10 seconds (for example because it broke)."
+      },
+      "biteThreshold": {
+        "name": "Bite threshold",
+        "description": "How fast the bobber has to sink to count as a bite, in hundredths of a block per tick. Lower means more sensitive. Default: 15."
+      },
+      "settleTicks": {
+        "name": "Settle time (ticks)",
+        "description": "How long the bobber has to float before bites are detected (20 ticks = 1 second). Prevents false bites right after casting."
+      },
+      "debug": {
+        "name": "Debug output",
+        "description": "Reports in chat and in the game log (latest.log) when the bobber almost reaches the bite threshold. Helps to tune the sensitivity."
+      },
+      "header": {
+        "general": {
+          "name": "General"
+        },
+        "timing": {
+          "name": "Timing (human-like delays)"
+        },
+        "safety": {
+          "name": "Safety"
+        },
+        "detection": {
+          "name": "Bite detection"
+        }
+      }
+    },
+    "notification": {
+      "title": "Angelbot"
+    },
+    "debug": {
+      "bite": "[Angelbot] Bite detected (sink speed %s), reacting in %s ticks",
+      "nearMiss": "[Angelbot] Bobber sinks at %s (threshold -%s)"
+    },
+    "messages": {
+      "started": "Started. Keep a fishing rod in your hand.",
+      "alreadyRunning": "The bot is already running.",
+      "addonDisabled": "The addon is switched off in the settings.",
+      "notInGame": "You have to be in a world first.",
+      "noRod": "Hold a fishing rod in your main hand or off hand.",
+      "paused": "Paused: a screen is open. Tip: F3+P stops Minecraft from pausing when the window loses focus.",
+      "stopped": {
+        "manual": "Stopped. Bites: %s",
+        "leftGame": "Stopped: you left the world. Bites: %s",
+        "noRod": "Stopped: no fishing rod in hand. Bites: %s",
+        "noWater": "Stopped: the bobber does not land in water. Bites: %s",
+        "noResponse": "Stopped: the server does not react to the rod. Bites: %s",
+        "addonDisabled": "Stopped: the addon was switched off. Bites: %s",
+        "error": "Stopped because of an internal error (see latest.log). Bites: %s"
+      },
+      "status": "Status: %s | Bites: %s | Runtime: %s",
+      "statusOff": "The bot is off. Start it with /angelbot or the toggle key.",
+      "usage": "Usage: /angelbot [on|off|status]"
+    },
+    "state": {
+      "off": "off",
+      "waitCast": "waiting to cast",
+      "castSent": "casting",
+      "waitBite": "waiting for a bite",
+      "react": "bite detected",
+      "reelSent": "reeling in",
+      "paused": "paused (screen open)"
+    }
+  }
+}

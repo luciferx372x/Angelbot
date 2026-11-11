@@ -1,0 +1,55 @@
+minecraft-union-lock 1
+version 26.1 26.1
+version 26.1.1 26.1.1
+version 26.1.2 26.1.2
+version 26.2 26.2
+version 26.3 26.3
+net/minecraft/client/Minecraft 26.1..26.3
+net/minecraft/client/Minecraft.gameMode:Lnet/minecraft/client/multiplayer/MultiPlayerGameMode; 26.1..26.3
+net/minecraft/client/Minecraft.getInstance()Lnet/minecraft/client/Minecraft; 26.1..26.3
+net/minecraft/client/Minecraft.gui:Lnet/minecraft/client/gui/Gui; 26.1..26.3
+net/minecraft/client/Minecraft.level:Lnet/minecraft/client/multiplayer/ClientLevel; 26.1..26.3
+net/minecraft/client/Minecraft.player:Lnet/minecraft/client/player/LocalPlayer; 26.1..26.3
+net/minecraft/client/Minecraft.screen:Lnet/minecraft/client/gui/screens/Screen; 26.1..26.1.2
+net/minecraft/client/gui/Gui 26.1..26.3
+net/minecraft/client/gui/Gui.screen()Lnet/minecraft/client/gui/screens/Screen; 26.2..26.3
+net/minecraft/client/gui/screens/Screen 26.1..26.3
+net/minecraft/client/multiplayer/ClientLevel 26.1..26.3
+net/minecraft/client/multiplayer/MultiPlayerGameMode 26.1..26.3
+net/minecraft/client/multiplayer/MultiPlayerGameMode.useItem(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResult; 26.1..26.3
+net/minecraft/client/player/LocalPlayer 26.1..26.3
+net/minecraft/core/BlockPos 26.1..26.3
+net/minecraft/core/TypedInstance 26.1..26.3
+net/minecraft/core/TypedInstance.is(Lnet/minecraft/tags/TagKey;)Z 26.1..26.3
+net/minecraft/tags/FluidTags 26.1..26.3
+net/minecraft/tags/FluidTags.WATER:Lnet/minecraft/tags/TagKey; 26.1..26.3
+net/minecraft/tags/TagKey 26.1..26.3
+net/minecraft/world/InteractionHand 26.1..26.3
+net/minecraft/world/InteractionHand.MAIN_HAND:Lnet/minecraft/world/InteractionHand; 26.1..26.3
+net/minecraft/world/InteractionHand.OFF_HAND:Lnet/minecraft/world/InteractionHand; 26.1..26.3
+net/minecraft/world/InteractionResult 26.1..26.3
+net/minecraft/world/InteractionResult$Success 26.1..26.3
+net/minecraft/world/entity/Entity 26.1..26.3
+net/minecraft/world/entity/Entity.blockPosition()Lnet/minecraft/core/BlockPos; 26.1..26.3
+net/minecraft/world/entity/Entity.getDeltaMovement()Lnet/minecraft/world/phys/Vec3; 26.1..26.3
+net/minecraft/world/entity/LivingEntity 26.1..26.3
+net/minecraft/world/entity/LivingEntity.getMainHandItem()Lnet/minecraft/world/item/ItemStack; 26.1..26.3
+net/minecraft/world/entity/LivingEntity.getOffhandItem()Lnet/minecraft/world/item/ItemStack; 26.1..26.3
+net/minecraft/world/entity/player/Player 26.1..26.3
+net/minecraft/world/entity/player/Player.fishing:Lnet/minecraft/world/entity/projectile/FishingHook; 26.1..26.3
+net/minecraft/world/entity/projectile/FishingHook 26.1..26.3
+net/minecraft/world/entity/projectile/FishingHook.getHookedIn()Lnet/minecraft/world/entity/Entity; 26.1..26.3
+net/minecraft/world/item/Item 26.1..26.3
+net/minecraft/world/item/ItemStack 26.1..26.3
+net/minecraft/world/item/ItemStack.getItem()Lnet/minecraft/world/item/Item; 26.1..26.3
+net/minecraft/world/item/Items 26.1..26.3
+net/minecraft/world/item/Items.FISHING_ROD:Lnet/minecraft/world/item/Item; 26.1..26.3
+net/minecraft/world/level/BlockGetter 26.1..26.3
+net/minecraft/world/level/BlockGetter.getFluidState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/material/FluidState; 26.1..26.3
+net/minecraft/world/level/Level 26.1..26.3
+net/minecraft/world/level/Level.getFluidState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/material/FluidState; 26.1..26.3
+net/minecraft/world/level/entity/EntityAccess 26.1..26.3
+net/minecraft/world/level/entity/EntityAccess.blockPosition()Lnet/minecraft/core/BlockPos; 26.1..26.3
+net/minecraft/world/level/material/FluidState 26.1..26.3
+net/minecraft/world/phys/Vec3 26.1..26.3
+net/minecraft/world/phys/Vec3.y:D 26.1..26.3

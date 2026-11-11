@@ -1,0 +1,9 @@
+* text=auto
+
+# The Gradle wrapper script must keep Unix line endings so that the GitHub Actions build can run it.
+gradlew text eol=lf
+*.bat text eol=crlf
+
+# Binary
+*.jar binary
+*.png binary
