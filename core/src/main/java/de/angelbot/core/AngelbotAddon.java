@@ -4,6 +4,7 @@ import de.angelbot.core.bot.FishingBot;
 import de.angelbot.core.bot.StopReason;
 import de.angelbot.core.commands.AngelbotCommand;
 import de.angelbot.core.generated.DefaultReferenceStorage;
+import de.angelbot.core.listener.AngelbotChatListener;
 import de.angelbot.core.listener.AngelbotKeyListener;
 import de.angelbot.core.listener.AngelbotTickListener;
 import java.util.Random;
@@ -17,6 +18,7 @@ public class AngelbotAddon extends LabyAddon<AngelbotConfiguration> {
   private FishingController controller;
   private BotMessages messages;
   private FishingBot bot;
+  private SpotStore spotStore;
 
   @Override
   protected void enable() {
@@ -25,11 +27,14 @@ public class AngelbotAddon extends LabyAddon<AngelbotConfiguration> {
     DefaultReferenceStorage storage = this.referenceStorageAccessor();
     this.controller = storage.fishingController();
     this.messages = new BotMessages(this);
+    this.spotStore = new SpotStore(this);
+    // Der Controller setzt Angel, Inventar und Laufen um; der Bot erkennt das selbst.
     this.bot =
         new FishingBot(this.controller, new ConfigBotSettings(this), this.messages, new Random());
 
     this.registerListener(new AngelbotTickListener(this));
     this.registerListener(new AngelbotKeyListener(this));
+    this.registerListener(new AngelbotChatListener(this));
     this.registerCommand(new AngelbotCommand(this));
 
     this.logger().info("Angelbot loaded, game access: " + this.controller.getClass().getName());
@@ -46,6 +51,21 @@ public class AngelbotAddon extends LabyAddon<AngelbotConfiguration> {
 
   public FishingBot bot() {
     return this.bot;
+  }
+
+  /** Die gespeicherten Angelstellen und der Mittelpunkt des Bereichs. */
+  public SpotStore spotStore() {
+    return this.spotStore;
+  }
+
+  /** Eine Meldung des Servers (Chat oder Aktionsleiste) ist eingetroffen. */
+  public void onServerMessage(String text) {
+    // Eigene Zeilen des Addons (Debug-Ausgabe, Befehle) zählen nicht.
+    if (text == null || text.contains("[Angelbot]") || text.contains("/angelbot")) {
+      return;
+    }
+
+    this.bot.onChatMessage(text);
   }
 
   /**

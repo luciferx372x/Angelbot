@@ -31,7 +31,7 @@ public class FishingBotTest {
   }
 
   /** Einstellungen mit den Standardwerten des Addons. */
-  static final class TestSettings implements BotSettings {
+  static class TestSettings implements BotSettings {
     int reactionMin = 200;
     int reactionMax = 450;
     int recastMin = 700;
@@ -55,7 +55,7 @@ public class FishingBotTest {
     public boolean debug() { return this.debug; }
   }
 
-  static final class Recorder implements BotEvents {
+  static class Recorder implements BotEvents {
     StopReason reason;
     int bites = -1;
     int stops;
@@ -91,7 +91,7 @@ public class FishingBotTest {
   }
 
   /** Simuliertes Spiel mit Server-Verzögerung. */
-  static final class FakeGame implements FishingHandle {
+  static class FakeGame implements FishingHandle {
     boolean inGame = true;
     boolean screenOpen;
     boolean rod = true;

@@ -36,7 +36,51 @@
       },
       "stopWithoutRod": {
         "name": "Ohne Angel abschalten",
-        "description": "Schaltet den Bot ab, wenn 10 Sekunden lang keine Angel in der Hand liegt (zum Beispiel weil sie kaputtgegangen ist)."
+        "description": "Schaltet den Bot ab, wenn 10 Sekunden lang keine Angel in der Hand liegt (zum Beispiel weil du sie weggesteckt hast)."
+      },
+      "switchRods": {
+        "name": "Auf Ersatzangel wechseln",
+        "description": "Ist die Angel in deiner Hand verbraucht (siehe die Einstellung darunter) oder geht sie kaputt, nimmt der Bot eine andere Angel aus der Hotbar, der Nebenhand oder dem Inventar und macht weiter. Ohne Ersatzangel hört er auf. Ist das aus, stoppt der Bot, sobald die Angel verbraucht ist."
+      },
+      "minRodDurability": {
+        "name": "Angel verbraucht bei (Benutzungen übrig)",
+        "description": "Eine Angel mit so vielen Benutzungen Rest oder weniger wird nicht mehr benutzt, damit sie nicht kaputtgeht (eine neue Angel hat 64 Benutzungen). 0 = benutzen, bis sie kaputtgeht."
+      },
+      "autoEat": {
+        "name": "Automatisch essen",
+        "description": "Isst bei Hunger zwischen zwei Würfen. Nur, solange der Bot läuft. Das Essen muss in der Hotbar, der Nebenhand oder dem Inventar liegen."
+      },
+      "eatBelow": {
+        "name": "Essen bei Hungerwert",
+        "description": "Der Bot isst, wenn dein Hungerwert so hoch ist oder darunter (20 = satt, jede Keule sind 2 Punkte)."
+      },
+      "foods": {
+        "name": "Erlaubtes Essen",
+        "description": "Namen der Gegenstände, die der Bot essen darf, durch Komma getrennt, das Beste zuerst. Gegessen wird das erste, das gefunden wird (Nebenhand, Hotbar, dann Inventar). Die Standardliste enthält sicheres, übliches Essen und keine goldenen Äpfel."
+      },
+      "zoneRadius": {
+        "name": "Radius des erlaubten Bereichs (Blöcke)",
+        "description": "Der Bot stoppt, wenn du weiter als das vom Mittelpunkt des Bereichs entfernt bist. Der Mittelpunkt ist die Stelle, an der der Bot gestartet ist, oder die, die du mit /angelbot zone set festlegst. 0 = keine Grenze. Zum Laufen zu einer anderen Stelle wird ein Radius gebraucht."
+      },
+      "emptyMessages": {
+        "name": "Chattext: Stelle ist leer",
+        "description": "Zeigt der Server eine Meldung (Chat oder Aktionsleiste) mit einem dieser Texte, durch Komma getrennt, gilt die Stelle als leer. Groß- und Kleinschreibung ist egal. Meldungen von Spielern werden ignoriert."
+      },
+      "walkToNextSpot": {
+        "name": "Zur nächsten Stelle laufen",
+        "description": "Ist die Stelle leer, läuft der Bot zur nächsten gespeicherten Stelle (siehe /angelbot spot) und angelt dort, nur innerhalb des erlaubten Bereichs. Ist das aus, stoppt der Bot. Selbstständiges Laufen kann auf Servern verboten sein und ist nicht auf jedem Gelände getestet. Bleibe am Anfang in der Nähe."
+      },
+      "spotCooldownMinutes": {
+        "name": "Leere Stelle ruht (Minuten)",
+        "description": "Eine Stelle, die als leer gemeldet wurde, wird so lange nicht wieder besucht."
+      },
+      "zoneCenter": {
+        "name": "Mittelpunkt des Bereichs (x,z)",
+        "description": "Wird mit /angelbot zone set festgelegt. Leer: Der Bereich liegt um die Stelle, an der der Bot startet."
+      },
+      "spots": {
+        "name": "Gespeicherte Stellen",
+        "description": "Werden mit /angelbot spot add gespeichert. Format: x,y,z,yaw,pitch, mehrere Stellen durch Semikolon getrennt. Die Liste lässt sich hier auch leeren oder ändern."
       },
       "biteThreshold": {
         "name": "Bissschwelle",
@@ -60,6 +104,18 @@
         "safety": {
           "name": "Sicherheit"
         },
+        "rod": {
+          "name": "Angel"
+        },
+        "food": {
+          "name": "Essen"
+        },
+        "area": {
+          "name": "Erlaubter Bereich"
+        },
+        "spots": {
+          "name": "Stellen (leere Angelstelle)"
+        },
         "detection": {
           "name": "Bisserkennung"
         }
@@ -79,18 +135,49 @@
       "notInGame": "Du musst zuerst eine Welt betreten.",
       "noRod": "Halte eine Angel in der Haupt- oder Nebenhand.",
       "paused": "Pausiert: Ein Bildschirm ist offen. Tipp: Mit F3+P pausiert Minecraft nicht mehr beim Fensterwechsel.",
+      "rodSwitched": "Auf eine andere Angel gewechselt (noch %s Benutzungen).",
+      "noFood": "Du hast Hunger, aber nichts vom erlaubten Essen gefunden.",
+      "walking": "Die Stelle ist leer. Laufe zu Stelle %s von %s.",
+      "arrived": "An Stelle %s angekommen. Es wird weiter geangelt.",
       "stopped": {
         "manual": "Gestoppt. Bisse: %s",
         "leftGame": "Gestoppt: Du hast die Welt verlassen. Bisse: %s",
         "noRod": "Gestoppt: Keine Angel in der Hand. Bisse: %s",
+        "noSpareRod": "Gestoppt: Die Angel ist verbraucht und es gibt keine Ersatzangel. Bisse: %s",
         "noWater": "Gestoppt: Der Schwimmer landet nicht im Wasser. Bisse: %s",
         "noResponse": "Gestoppt: Der Server reagiert nicht auf die Angel. Bisse: %s",
+        "outOfZone": "Gestoppt: Du bist außerhalb des erlaubten Bereichs. Bisse: %s",
+        "spotEmpty": "Gestoppt: Die Stelle ist leer und der Bot kann nicht zu einer anderen laufen. Bisse: %s",
+        "allSpotsEmpty": "Gestoppt: Alle gespeicherten Stellen sind leer oder ruhen noch. Bisse: %s",
+        "walkFailed": "Gestoppt: Der Weg zur nächsten Stelle ist versperrt oder der Bot steckt fest. Bisse: %s",
+        "walkDanger": "Laufen abgebrochen: Schaden, Wasser oder zu wenig Leben. Bisse: %s",
         "addonDisabled": "Gestoppt: Das Addon wurde ausgeschaltet. Bisse: %s",
         "error": "Gestoppt wegen eines internen Fehlers (siehe latest.log). Bisse: %s"
       },
       "status": "Status: %s | Bisse: %s | Laufzeit: %s",
       "statusOff": "Der Bot ist aus. Starte ihn mit /angelbot oder der Taste.",
-      "usage": "Benutzung: /angelbot [on|off|status]"
+      "usage": "Benutzung: /angelbot [on|off|status|spot|zone]",
+      "spot": {
+        "usage": "Benutzung: /angelbot spot [add|list|remove <Nummer>|clear]",
+        "added": "Stelle %s gespeichert bei %s / %s / %s (mit deiner Blickrichtung).",
+        "none": "Noch keine Stellen gespeichert. Stell dich dorthin, wo du angeln willst, schau aufs Wasser und gib /angelbot spot add ein.",
+        "listHeader": "Gespeicherte Stellen (%s):",
+        "removed": "Stelle %s entfernt.",
+        "notFound": "Es gibt keine Stelle mit dieser Nummer.",
+        "cleared": "Alle Stellen entfernt.",
+        "notOnGround": "Stell dich erst ruhig auf den Boden und speichere dann die Stelle.",
+        "notWalkable": "Hinweis: Der Bot kann hier nicht sicher stehen (Platte, Treppe, Teppich, Wasser, Lava oder Kaktus in der Nähe), er läuft deshalb nicht zu dieser Stelle.",
+        "full": "Die Liste ist voll (%s Stellen). Entferne zuerst eine.",
+        "outside": "Dieser Ort ist mehr als %s Blöcke vom Mittelpunkt des erlaubten Bereichs entfernt."
+      },
+      "zone": {
+        "usage": "Benutzung: /angelbot zone [set|clear]",
+        "set": "Mittelpunkt des Bereichs auf %s / %s gesetzt.",
+        "setNoRadius": "Der Bereich hat noch keinen Radius. Stelle \"Radius des erlaubten Bereichs\" in den Addon-Einstellungen ein, sonst gibt es keine Grenze.",
+        "cleared": "Mittelpunkt entfernt. Der Bereich liegt um die Stelle, an der der Bot startet.",
+        "show": "Bereich: Mittelpunkt %s / %s, Radius %s Blöcke.",
+        "showNone": "Kein fester Mittelpunkt: Der Bereich liegt um die Stelle, an der der Bot startet (Radius %s Blöcke, 0 = keine Grenze)."
+      }
     },
     "state": {
       "off": "aus",
@@ -99,6 +186,8 @@
       "waitBite": "wartet auf Biss",
       "react": "Biss erkannt",
       "reelSent": "holt ein",
+      "eat": "isst",
+      "walk": "läuft zur nächsten Stelle",
       "paused": "pausiert (Bildschirm offen)"
     }
   }

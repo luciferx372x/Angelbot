@@ -36,7 +36,51 @@
       },
       "stopWithoutRod": {
         "name": "Stop without a rod",
-        "description": "Switches the bot off if no fishing rod is held for 10 seconds (for example because it broke)."
+        "description": "Switches the bot off if no fishing rod is held for 10 seconds (for example because you put it away)."
+      },
+      "switchRods": {
+        "name": "Switch to a spare rod",
+        "description": "When the rod in your hand is used up (see the setting below) or breaks, the bot takes another fishing rod from your hotbar, off hand or inventory and carries on. Without a spare rod it stops. If this is off, the bot stops as soon as the rod is used up."
+      },
+      "minRodDurability": {
+        "name": "Rod is used up at (uses left)",
+        "description": "A rod with this many uses left or fewer is not used any more, so it does not break (a new rod has 64 uses). 0 = use it until it breaks."
+      },
+      "autoEat": {
+        "name": "Eat automatically",
+        "description": "Eats when you are hungry, between two casts. Only while the bot is running. The food has to be in your hotbar, off hand or inventory."
+      },
+      "eatBelow": {
+        "name": "Eat at food level",
+        "description": "The bot eats when your food level is at or below this value (20 = full, every drumstick is 2 points)."
+      },
+      "foods": {
+        "name": "Allowed food",
+        "description": "Names of the items the bot may eat, separated by commas, best first. The first one that is found is eaten (off hand, hotbar, then inventory). The default list contains safe, common food and no golden apples."
+      },
+      "zoneRadius": {
+        "name": "Allowed area radius (blocks)",
+        "description": "The bot stops if you are farther away than this from the center of the area. The center is the point where the bot started or the point you set with /angelbot zone set. 0 = no limit. Walking to another spot needs a radius."
+      },
+      "emptyMessages": {
+        "name": "Chat text: spot is empty",
+        "description": "If the server shows a message (chat or action bar) containing one of these texts, separated by commas, the bot treats the spot as empty. Upper and lower case do not matter. Messages from players are ignored."
+      },
+      "walkToNextSpot": {
+        "name": "Walk to the next spot",
+        "description": "When the spot is empty, the bot walks to the next saved spot (see /angelbot spot) and fishes there, only inside the allowed area. If this is off, the bot stops. Walking by itself may be forbidden on servers, and it is not tested on every kind of terrain. Stay close at first."
+      },
+      "spotCooldownMinutes": {
+        "name": "Empty spot rests for (min)",
+        "description": "A spot that was reported as empty is not visited again for this long."
+      },
+      "zoneCenter": {
+        "name": "Area center (x,z)",
+        "description": "Set with /angelbot zone set. Empty: the area is centered on the place where the bot starts."
+      },
+      "spots": {
+        "name": "Saved spots",
+        "description": "Saved with /angelbot spot add. Format: x,y,z,yaw,pitch, several spots separated by semicolons. You can also clear or edit the list here."
       },
       "biteThreshold": {
         "name": "Bite threshold",
@@ -60,6 +104,18 @@
         "safety": {
           "name": "Safety"
         },
+        "rod": {
+          "name": "Fishing rod"
+        },
+        "food": {
+          "name": "Food"
+        },
+        "area": {
+          "name": "Allowed area"
+        },
+        "spots": {
+          "name": "Spots (empty fishing spot)"
+        },
         "detection": {
           "name": "Bite detection"
         }
@@ -79,18 +135,49 @@
       "notInGame": "You have to be in a world first.",
       "noRod": "Hold a fishing rod in your main hand or off hand.",
       "paused": "Paused: a screen is open. Tip: F3+P stops Minecraft from pausing when the window loses focus.",
+      "rodSwitched": "Switched to another rod (%s uses left).",
+      "noFood": "You are hungry, but none of the allowed food was found.",
+      "walking": "The spot is empty. Walking to spot %s of %s.",
+      "arrived": "Arrived at spot %s. Fishing continues.",
       "stopped": {
         "manual": "Stopped. Bites: %s",
         "leftGame": "Stopped: you left the world. Bites: %s",
         "noRod": "Stopped: no fishing rod in hand. Bites: %s",
+        "noSpareRod": "Stopped: the rod is used up and there is no spare rod. Bites: %s",
         "noWater": "Stopped: the bobber does not land in water. Bites: %s",
         "noResponse": "Stopped: the server does not react to the rod. Bites: %s",
+        "outOfZone": "Stopped: you are outside the allowed area. Bites: %s",
+        "spotEmpty": "Stopped: the spot is empty and the bot cannot walk to another one. Bites: %s",
+        "allSpotsEmpty": "Stopped: all saved spots are empty or resting. Bites: %s",
+        "walkFailed": "Stopped: the way to the next spot is blocked or the bot got stuck. Bites: %s",
+        "walkDanger": "Stopped walking: damage, water or low health. Bites: %s",
         "addonDisabled": "Stopped: the addon was switched off. Bites: %s",
         "error": "Stopped because of an internal error (see latest.log). Bites: %s"
       },
       "status": "Status: %s | Bites: %s | Runtime: %s",
       "statusOff": "The bot is off. Start it with /angelbot or the toggle key.",
-      "usage": "Usage: /angelbot [on|off|status]"
+      "usage": "Usage: /angelbot [on|off|status|spot|zone]",
+      "spot": {
+        "usage": "Usage: /angelbot spot [add|list|remove <number>|clear]",
+        "added": "Spot %s saved at %s / %s / %s (with your viewing direction).",
+        "none": "No spots saved yet. Stand where you want to fish, look at the water and use /angelbot spot add.",
+        "listHeader": "Saved spots (%s):",
+        "removed": "Spot %s removed.",
+        "notFound": "There is no spot with that number.",
+        "cleared": "All spots removed.",
+        "notOnGround": "Stand still on the ground first, then save the spot.",
+        "notWalkable": "Note: the bot cannot stand safely here (slab, stairs, carpet, water, lava or cactus nearby), so it will not walk to this spot.",
+        "full": "The list is full (%s spots). Remove one first.",
+        "outside": "This place is more than %s blocks away from the center of the allowed area."
+      },
+      "zone": {
+        "usage": "Usage: /angelbot zone [set|clear]",
+        "set": "Area center set to %s / %s.",
+        "setNoRadius": "The area has no radius yet. Set \"Allowed area radius\" in the addon settings, otherwise there is no limit.",
+        "cleared": "Area center removed. The area is centered on the point where the bot starts.",
+        "show": "Area: center %s / %s, radius %s blocks.",
+        "showNone": "No fixed center: the area is centered on the point where the bot starts (radius %s blocks, 0 = no limit)."
+      }
     },
     "state": {
       "off": "off",
@@ -99,6 +186,8 @@
       "waitBite": "waiting for a bite",
       "react": "bite detected",
       "reelSent": "reeling in",
+      "eat": "eating",
+      "walk": "walking to the next spot",
       "paused": "paused (screen open)"
     }
   }

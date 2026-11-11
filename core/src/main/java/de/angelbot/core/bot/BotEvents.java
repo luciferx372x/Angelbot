@@ -3,6 +3,8 @@ package de.angelbot.core.bot;
 /**
  * Rückmeldungen des Bots an die Oberfläche. Der Bot selbst erzeugt keine Texte für den Spieler, die
  * Umsetzung übernimmt die Übersetzung.
+ *
+ * <p>Die Rückmeldungen ab {@link #rodSwitched(int)} sind optional (Standard: nichts tun).
  */
 public interface BotEvents {
 
@@ -30,4 +32,22 @@ public interface BotEvents {
    * aber nicht.
    */
   void debugNearMiss(double speed, double threshold);
+
+  /** Der Bot hat auf eine andere Angel gewechselt. */
+  default void rodSwitched(int durabilityLeft) {}
+
+  /** Der Bot hat gegessen. {@code foodLevel} ist der Hungerwert danach. */
+  default void ate(int foodLevel) {}
+
+  /** Der Bot hat Hunger, findet aber nichts zu essen. Kommt höchstens alle paar Minuten. */
+  default void noFood() {}
+
+  /** Der Server hat gemeldet, dass die Stelle leer ist. */
+  default void spotEmpty() {}
+
+  /** Der Bot läuft los zur Stelle mit dieser Nummer (ab 1). */
+  default void walkStarted(int spotNumber, int spotCount) {}
+
+  /** Der Bot ist an der Stelle mit dieser Nummer (ab 1) angekommen. */
+  default void walkArrived(int spotNumber) {}
 }

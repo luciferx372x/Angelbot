@@ -1,25 +1,29 @@
 # Angelbot for LabyMod 4
 
 An addon for the Laby Client that fishes for you. It detects the bite, reels in after a short random
-reaction time, waits a random pause and casts again.
+reaction time, waits a random pause and casts again. It can also switch to a spare rod, eat when you are
+hungry, stay inside an allowed area and, if you want, walk to the next fishing spot when the server says
+that the current spot is empty.
 
 - **Minecraft:** 26.1, 26.1.1, 26.1.2, 26.2 and 26.3
 - **Client:** Laby Client (LabyMod 4) as an addon. No Forge, no Fabric.
 - **Languages:** English and German (follows the Minecraft language). [Deutsche Version](README.de.md)
 
-> **Servers:** Automatic fishing is forbidden on many servers and can get you banned. Use it in single
-> player or where it is allowed. The random delays are not a protection against detection.
+> **Servers:** Automatic fishing, and even more so automatic walking, is forbidden on many servers and can
+> get you banned. Use it in single player or where it is allowed. The random delays are not a protection
+> against detection.
 
 ## Install
 
 Install it from the addon store in the Laby Client (once it is listed), or by hand: put
-`angelbot-release.jar` into the addon folder and restart the client.
+`angelbot-release.jar` into the `addons` folder of your instance and restart the client.
 
-| System | Addon folder |
+| LabyMod Launcher | Addon folder |
 |---|---|
-| Windows | `%APPDATA%\.minecraft\labymod-neo\addons` |
-| Linux | `~/.minecraft/labymod-neo/addons` |
-| macOS | `~/Library/Application Support/minecraft/labymod-neo/addons` |
+| Version 3 (Windows) | `%APPDATA%\LabyMod\instances\<instance id>\addons`, one folder per instance |
+| Older versions | Windows `%APPDATA%\.minecraft\labymod-neo\addons`, Linux `~/.minecraft/labymod-neo/addons`, macOS `~/Library/Application Support/minecraft/labymod-neo/addons` |
+
+If the addon is not in the list after a restart, the jar is most likely in the wrong folder.
 
 ## Use
 
@@ -29,9 +33,20 @@ Install it from the addon store in the Laby Client (once it is listed), or by ha
    as the chat is open.
 3. `/angelbot status` shows state, bites and run time.
 
+| Command | What it does |
+|---|---|
+| `/angelbot` | Starts or stops the bot |
+| `/angelbot on`, `/angelbot off` | Starts or stops the bot |
+| `/angelbot status` | State, bites and run time |
+| `/angelbot spot add` | Saves the place where you stand, with your viewing direction, as a fishing spot |
+| `/angelbot spot list`, `spot remove <number>`, `spot clear` | Shows, removes or clears the saved spots |
+| `/angelbot zone set` | Sets the center of the allowed area to the place where you stand |
+| `/angelbot zone`, `zone clear` | Shows or removes the center |
+
 The bot switches itself off (with a notification) when you leave the world, when no rod is held for 10
-seconds (for example because it broke), when the bobber misses the water five times in a row, when the
-server does not react to the rod five times in a row, or on an unexpected error.
+seconds, when the rod is used up and there is no spare rod, when you leave the allowed area, when the bobber
+misses the water five times in a row, when the server does not react to the rod five times in a row, when
+the server says the spot is empty and the bot cannot walk to another one, or on an unexpected error.
 
 **Fishing in the background:** When you switch windows, Minecraft opens the pause menu. While a screen is
 open the bot rests (after 10 seconds you get a hint). Press **F3 + P** to stop Minecraft from pausing when
@@ -50,12 +65,73 @@ Settings → Addons → Angelbot.
 | Timeout without a bite | 60 s | Then the rod is reeled in and cast again |
 | Pause while a screen is open | on | The bot rests while chat, inventory or a menu is open |
 | Stop without a rod | on | Switches the bot off after 10 s without a rod in hand |
+| Switch to a spare rod | on | Takes another rod when the current one is used up or breaks, otherwise the bot stops |
+| Rod is used up at (uses left) | 5 | A rod with this many uses left or fewer is not used any more. 0 = until it breaks |
+| Eat automatically | on | Eats between two casts when you are hungry (only while the bot runs) |
+| Eat at food level | 14 | The bot eats at this food level (20 = full) or below |
+| Allowed food | common safe food | Item names, separated by commas, best first |
+| Allowed area radius | 0 (off) | The bot stops when you are farther than this from the center of the area |
+| Chat text: spot is empty | `keine fische,no fish` | A server message with one of these texts means that the spot is empty |
+| Walk to the next spot | off | Walks to the next saved spot when the spot is empty |
+| Empty spot rests for | 10 min | An empty spot is not visited again for this long |
 | Bite threshold | 15 | Sink speed of the bobber (hundredths of a block per tick) that counts as a bite |
 | Settle time | 20 ticks | How long after first touching the water the bot waits before it watches for bites |
 | Debug output | off | Reports in chat and in `latest.log` when the bobber almost reaches the threshold |
 
 The fish stays on the hook for only **1 to 2 seconds** after the bite. Keep the longest reaction time
 below about 600 ms, and lower with a high ping.
+
+## Fishing rod: durability and spare rods
+
+A new rod has 64 uses. *Rod is used up at* sets how many uses have to be left at least (default 5), so a
+good rod is not used until it breaks. The bot checks before every cast. When the rod in your hand is used
+up, it takes another rod that is better than the limit: first from the hotbar, then from the inventory
+(swapped into the selected hotbar slot, the used-up rod goes to the inventory). Without a spare rod the bot
+stops and tells you. With the limit at 0 the rod is used until it breaks, and the bot switches (or stops)
+right when it does. If you turn off *Switch to a spare rod*, the bot stops as soon as the rod is used up.
+
+## Eating
+
+When your food level is at or below *Eat at food level*, the bot eats between two casts, never while the
+bobber is out. It only eats the items in *Allowed food* (the first one it finds, in the order of the list:
+off hand, hotbar, then inventory). The default list is common safe food, without golden apples. The bot puts
+the rod back in your hand afterwards. If nothing from the list is found, you get a notification (at most once
+a minute) and the bot keeps fishing. Nothing happens while the bot is off.
+
+## Allowed area
+
+*Allowed area radius* limits how far you may get from the center of the area. The center is the place where
+you started the bot, or a fixed center that you set with `/angelbot zone set`. When you are farther away than
+the radius (plus one block), the bot stops. This also protects you when something pushes or teleports you.
+0 means no limit.
+
+## Empty fishing spots and walking
+
+Some servers tell you when a fishing spot is used up. When a message with one of the texts in *Chat text:
+spot is empty* arrives (in the chat or the action bar, messages from players are ignored), the bot reacts:
+
+- **Walking off (default):** the bot reels in, stops and tells you. You move on yourself.
+- **Walking on:** the bot reels in and walks to the next saved spot. Set it up once:
+  1. Set *Allowed area radius* (for example 15) and stand in the middle of the area: `/angelbot zone set`.
+  2. Stand at every spot where you fish, look at the water and use `/angelbot spot add` (at least two spots).
+  3. Turn on *Walk to the next spot* and start the bot.
+
+  The bot walks to the next spot in the list that is not resting, turns to the saved viewing direction,
+  waits a second and casts. A spot that was reported as empty rests for the set time. When all spots rest,
+  the bot stops.
+
+**How the bot walks, and what it avoids:** the path is found with A\* over the loaded blocks: straight
+steps in four directions, one block up (with a jump) and down by up to two blocks. It never walks through
+water, lava, fire, cobwebs, berry bushes, powder snow, portals, ladders or pressure plates, never stands on
+magma, cactus, farmland, honey, slime, campfires or ice, and keeps one block away from lava and cactus. It
+stays inside the allowed area. It stops when it takes damage, gets into water, has three hearts or fewer, when
+there is no way, when it gets stuck (it tries a jump and two new paths first) or after 90 seconds.
+
+**Limits, honestly:** no diagonal steps, no swimming, no climbing, and doors, gates, fences, slabs, stairs and
+carpets count as obstacles. Spots have to be on full blocks (dirt paths work). Walking has only been tested
+against a simulated world, not on every kind of terrain and server. Try it in single player first and stay
+close to the bot at the beginning. Keys are pressed like a real player would, so the game window has to stay
+focused (see F3 + P above).
 
 ## How the bite is detected
 
@@ -99,22 +175,27 @@ other versions are `client_v26.1`, `client_v26.1.1`, `client_v26.1.2` and `clien
 build.gradle.kts, settings.gradle.kts, gradle.properties   Gradle setup (LabyGradle 0.11.0)
 core/                                version independent part
   src/main/java/de/angelbot/core/
-    AngelbotAddon.java               main class (start, listeners, command)
+    AngelbotAddon.java               main class (start, listeners, commands)
     AngelbotConfiguration.java       settings
     FishingController.java           interface to the game
-    bot/FishingBot.java              state machine: cast, bite, reel in
-    commands/, listener/             /angelbot, tick and key
+    SpotStore.java                   saved spots and the center of the area
+    bot/FishingBot.java              state machine: cast, bite, reel in, eat, walk
+    bot/*Handle.java                 what the bot needs from the game (fishing, inventory, movement)
+    bot/walk/                        path finder, walker, spots (no Minecraft inside)
+    commands/, listener/             /angelbot, tick, key and chat
   src/main/resources/assets/angelbot/i18n/   texts (en_us, de_de)
 game-runner/src/shared/java/de/angelbot/shared/
-  VersionedFishingController.java    access to rod, bobber and right click (Minecraft 26.x)
-tests/FishingBotTest.java            tests of the bot logic with a simulated game
+  VersionedFishingController.java    rod, bobber, inventory, eating and walking (Minecraft 26.x)
+  MinecraftWorldView.java            what counts as safe ground and free space
+tests/                               FishingBotTest, WalkTest, FeaturesTest
 ```
 
-The bot logic (`core/.../bot`) knows neither Minecraft nor LabyMod. The test runs without Gradle:
+The bot logic (`core/.../bot`) knows neither Minecraft nor LabyMod. The tests run without Gradle:
 
 ```bash
-"$JAVA_HOME/bin/javac" -d tests/out core/src/main/java/de/angelbot/core/bot/*.java tests/FishingBotTest.java
-"$JAVA_HOME/bin/java" -cp tests/out FishingBotTest
+"$JAVA_HOME/bin/javac" -d tests/out core/src/main/java/de/angelbot/core/bot/*.java \
+    core/src/main/java/de/angelbot/core/bot/walk/*.java tests/*.java
+for t in FishingBotTest WalkTest FeaturesTest; do "$JAVA_HOME/bin/java" -cp tests/out $t; done
 ```
 
 ### Supporting another Minecraft version
@@ -129,12 +210,15 @@ The bot logic (`core/.../bot`) knows neither Minecraft nor LabyMod. The test run
 
 | Problem | Possible cause |
 |---|---|
-| Addon not in the list | Wrong jar (only `-release.jar`), wrong folder, Minecraft version outside 26.1 to 26.3, client not restarted |
+| Addon not in the list | Wrong jar (only `-release.jar`), wrong folder (see Install), Minecraft version outside 26.1 to 26.3, client not restarted |
 | `/angelbot` does nothing | Addon switched off in the settings; look at the notification at the top right |
 | Bot does not start | No fishing rod in main or off hand, or no world loaded |
 | Bot rests | A screen is open (also the pause menu after switching windows) |
 | Bot keeps casting again | The bobber does not land in water; aim differently |
 | "Server does not react" | Fishing is restricted on the server or the connection hangs |
+| "Rod is used up" | The rod reached the limit and there is no spare rod; lower the limit or add a rod |
+| "Outside the allowed area" | You are farther from the center than the radius; raise the radius or set the center again |
+| "Could not walk to the next spot" | No way inside the area (obstacle, water, a spot on a slab) or the bot got stuck; see the log |
 
 ## License
 

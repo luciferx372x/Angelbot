@@ -62,6 +62,48 @@ final class BotMessages implements BotEvents {
     this.chat("angelbot.debug.nearMiss", speedText, thresholdText);
   }
 
+  @Override
+  public void rodSwitched(int durabilityLeft) {
+    this.addon.logger().info("Switched to another rod, uses left: " + durabilityLeft);
+    this.push(
+        Component.translatable(
+            "angelbot.messages.rodSwitched", Component.text(String.valueOf(durabilityLeft))));
+  }
+
+  @Override
+  public void ate(int foodLevel) {
+    this.addon.logger().info("Ate something, food level now " + foodLevel);
+  }
+
+  @Override
+  public void noFood() {
+    this.addon.logger().info("Hungry, but no allowed food was found");
+    this.show("angelbot.messages.noFood");
+  }
+
+  @Override
+  public void spotEmpty() {
+    this.addon.logger().info("The server says the spot is empty");
+  }
+
+  @Override
+  public void walkStarted(int spotNumber, int spotCount) {
+    this.addon.logger().info("Walking to spot " + spotNumber + " of " + spotCount);
+    this.push(
+        Component.translatable(
+            "angelbot.messages.walking",
+            Component.text(String.valueOf(spotNumber)),
+            Component.text(String.valueOf(spotCount))));
+  }
+
+  @Override
+  public void walkArrived(int spotNumber) {
+    this.addon.logger().info("Arrived at spot " + spotNumber);
+    this.push(
+        Component.translatable(
+            "angelbot.messages.arrived", Component.text(String.valueOf(spotNumber))));
+  }
+
   /** Zeigt die Übersetzung zum Schlüssel als Benachrichtigung. */
   void show(String translationKey) {
     this.push(Component.translatable(translationKey));
