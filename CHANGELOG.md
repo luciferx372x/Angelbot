@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2
+
+- The permission `angelbot` can now be switched on by the player in the LabyMod settings (server
+  features), at their own risk. It stays off by default and servers can still enable it.
+
 ## 1.0.1
 
 Changes after the LabyMod review.

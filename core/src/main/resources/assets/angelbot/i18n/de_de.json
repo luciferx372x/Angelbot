@@ -137,7 +137,7 @@
       "started": "Gestartet. Halte eine Angel in der Hand.",
       "alreadyRunning": "Der Bot läuft bereits.",
       "addonDisabled": "Das Addon ist in den Einstellungen ausgeschaltet.",
-      "notPermitted": "Dieser Server hat den Angelbot nicht erlaubt. Ein Server muss zuerst die Berechtigung \"angelbot\" (LabyMod-Server-API) aktivieren.",
+      "notPermitted": "Dieser Server hat den Angelbot nicht erlaubt. Er braucht die Berechtigung \"angelbot\" (LabyMod-Server-API): Der Server kann sie aktivieren, oder du schaltest sie selbst in den LabyMod-Einstellungen bei den Server-Funktionen ein, auf eigenes Risiko.",
       "notInGame": "Du musst zuerst eine Welt betreten.",
       "noRod": "Halte eine Angel in der Haupt- oder Nebenhand.",
       "paused": "Pausiert: Ein Bildschirm ist offen. Tipp: Mit F3+P pausiert Minecraft nicht mehr beim Fensterwechsel.",

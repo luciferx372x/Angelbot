@@ -7,7 +7,7 @@ plugins {
 val versions = providers.gradleProperty("net.labymod.minecraft-versions").get().split(";")
 
 group = "de.angelbot"
-version = providers.environmentVariable("VERSION").getOrElse("1.0.1")
+version = providers.environmentVariable("VERSION").getOrElse("1.0.2")
 
 labyMod {
     defaultPackageName = "de.angelbot" // Hauptpackage, wird von allen Modulen genutzt

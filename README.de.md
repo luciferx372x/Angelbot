@@ -158,9 +158,10 @@ und entscheidet, ob der Bot überhaupt laufen darf:
   `/angelbot on` und die Umschalttaste nur eine Meldung. Ein bereits laufender Bot hält an, sobald du einen
   solchen Server betrittst oder der Server die Berechtigung zurücknimmt.
 
-Spieler können die Berechtigung nicht selbst einschalten, das kann nur der Server. Wer einen Server
-betreibt und den Bot erlauben will, aktiviert die Berechtigung `angelbot` für seine Spieler über die
-LabyMod-Server-API.
+Wer einen Server betreibt und den Bot erlauben will, aktiviert die Berechtigung `angelbot` für seine
+Spieler über die LabyMod-Server-API. Spieler können die Berechtigung auch selbst in den
+LabyMod-Einstellungen (Server-Funktionen) einschalten, auf eigenes Risiko: Viele Server verbieten Bots,
+und du kannst gebannt werden.
 
 ## So erkennt der Bot den Biss
 

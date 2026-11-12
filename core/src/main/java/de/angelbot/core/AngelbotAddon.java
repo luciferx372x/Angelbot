@@ -19,7 +19,8 @@ public class AngelbotAddon extends LabyAddon<AngelbotConfiguration> {
    * Server-API-Berechtigung, mit der ein Server den Bot erlaubt. Der Bot angelt, isst, tauscht
    * Inventarplätze und läuft für den Spieler, das gilt auf vielen Servern als unerlaubte
    * Client-Änderung. Deshalb ist die Berechtigung auf Servern standardmäßig aus (Vorgabe der
-   * LabyMod-Prüfung). Im Einzelspieler, ohne Verbindung zu einem Server, gilt sie als erlaubt.
+   * LabyMod-Prüfung); der Spieler kann sie selbst einschalten. Im Einzelspieler, ohne Verbindung zu
+   * einem Server, gilt sie als erlaubt.
    */
   public static final String PERMISSION = "angelbot";
 
@@ -32,8 +33,9 @@ public class AngelbotAddon extends LabyAddon<AngelbotConfiguration> {
   protected void enable() {
     this.registerSettingCategory();
 
-    // Aus als Standard: Nur ein Server kann den Bot erlauben, der Spieler kann es nicht erzwingen.
-    this.labyAPI().permissionRegistry().register(PERMISSION, false);
+    // Aus als Standard. Ein Server kann den Bot erlauben, und der Spieler kann die Berechtigung in den
+    // LabyMod-Einstellungen selbst einschalten (canForceEnable), auf eigenes Risiko.
+    this.labyAPI().permissionRegistry().register(PERMISSION, false, true);
 
     DefaultReferenceStorage storage = this.referenceStorageAccessor();
     this.controller = storage.fishingController();

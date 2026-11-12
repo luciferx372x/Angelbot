@@ -137,7 +137,7 @@
       "started": "Started. Keep a fishing rod in your hand.",
       "alreadyRunning": "The bot is already running.",
       "addonDisabled": "The addon is switched off in the settings.",
-      "notPermitted": "This server has not allowed the Angelbot. A server has to enable the \"angelbot\" permission (LabyMod Server API) first.",
+      "notPermitted": "This server has not allowed the Angelbot. It needs the \"angelbot\" permission (LabyMod Server API): the server can enable it, or you can switch it on yourself in the LabyMod settings under server features, at your own risk.",
       "notInGame": "You have to be in a world first.",
       "noRod": "Hold a fishing rod in your main hand or off hand.",
       "paused": "Paused: a screen is open. Tip: F3+P stops Minecraft from pausing when the window loses focus.",

@@ -144,8 +144,9 @@ decides whether the bot may run at all:
   the toggle key only show a message. A bot that is already running stops as soon as you join such a
   server or the server withdraws the permission.
 
-Players cannot turn the permission on themselves, only the server can. Server owners who want to allow the
-bot enable the permission `angelbot` for their players through the LabyMod Server API.
+Server owners who want to allow the bot enable the permission `angelbot` for their players through the
+LabyMod Server API. Players can also switch the permission on themselves in the LabyMod settings (server
+features), at their own risk: many servers forbid bots, and you can be banned.
 
 ## How the bite is detected
 
