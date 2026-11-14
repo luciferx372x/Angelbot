@@ -39,6 +39,7 @@ If the addon is not in the list after a restart, the jar is most likely in the w
 | `/angelbot` | Starts or stops the bot |
 | `/angelbot on`, `/angelbot off` | Starts or stops the bot |
 | `/angelbot status` | State, bites and run time |
+| `/angelbot force` | Switches the permission `angelbot` on for the current server, at your own risk (see Server permission) |
 | `/angelbot spot add` | Saves the place where you stand, with your viewing direction, as a fishing spot |
 | `/angelbot spot list`, `spot remove <number>`, `spot clear` | Shows, removes or clears the saved spots |
 | `/angelbot zone set` | Sets the center of the allowed area to the place where you stand |
@@ -72,7 +73,7 @@ Settings → Addons → Angelbot.
 | Eat at food level | 14 | The bot eats at this food level (20 = full) or below |
 | Allowed food | common safe food | Item names, separated by commas, best first |
 | Allowed area radius | 0 (off) | The bot stops when you are farther than this from the center of the area |
-| Chat text: spot is empty | `keine fische,no fish` | A server message with one of these texts means that the spot is empty |
+| Chat text: spot is empty | `kaum noch fische,überfischt,keine fische,no fish` | A server message with one of these texts means that the spot is empty |
 | Walk to the next spot | off | Walks to the next saved spot when the spot is empty |
 | Empty spot rests for | 10 min | An empty spot is not visited again for this long |
 | Bite threshold | 15 | Sink speed of the bobber (hundredths of a block per tick) that counts as a bite |

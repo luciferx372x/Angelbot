@@ -23,7 +23,7 @@ import net.labymod.api.util.I18n;
  */
 public class AngelbotCommand extends Command {
 
-  private static final String[] MAIN_OPTIONS = {"on", "off", "status", "spot", "zone"};
+  private static final String[] MAIN_OPTIONS = {"on", "off", "status", "spot", "zone", "force"};
   private static final String[] SPOT_OPTIONS = {"add", "list", "remove", "clear"};
   private static final String[] ZONE_OPTIONS = {"set", "clear"};
 
@@ -45,6 +45,10 @@ public class AngelbotCommand extends Command {
       case "status" -> this.sendStatus();
       case "spot", "stelle" -> this.spot(arguments);
       case "zone", "bereich" -> this.zone(arguments);
+      case "force", "erzwingen" -> this.info(
+          this.addon.forcePermission()
+              ? "angelbot.messages.forced"
+              : "angelbot.messages.forceFailed");
       default -> this.info("angelbot.messages.usage");
     }
 

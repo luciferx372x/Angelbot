@@ -137,7 +137,17 @@
       "started": "Started. Keep a fishing rod in your hand.",
       "alreadyRunning": "The bot is already running.",
       "addonDisabled": "The addon is switched off in the settings.",
-      "notPermitted": "This server has not allowed the Angelbot. It needs the \"angelbot\" permission (LabyMod Server API): the server can enable it, or you can switch it on yourself in the LabyMod settings under server features, at your own risk.",
+      "notPermitted": "This server has not allowed the Angelbot. It needs the \"angelbot\" permission (LabyMod Server API): the server can enable it, or you can switch it on yourself with /angelbot force, at your own risk.",
+      "walkBlocked": {
+        "off": "Cannot walk: the setting \"Walk to the next spot\" is switched off.",
+        "noRadius": "Cannot walk: the allowed area radius is 0. Set a radius in the settings.",
+        "noCenter": "Cannot walk: no area center. Stand in the middle and use /angelbot zone set.",
+        "cannotMove": "Cannot walk right now (a screen is open or the player cannot move).",
+        "noWorld": "Cannot walk: the world around you is not loaded.",
+        "fewSpots": "Cannot walk: you need at least two saved spots (/angelbot spot add)."
+      },
+      "forced": "Permission switched on for this server. Many servers forbid bots and you can be banned: use it at your own risk. Start the bot again.",
+      "forceFailed": "The permission could not be switched on (for example the server locked it).",
       "notInGame": "You have to be in a world first.",
       "noRod": "Hold a fishing rod in your main hand or off hand.",
       "paused": "Paused: a screen is open. Tip: F3+P stops Minecraft from pausing when the window loses focus.",
@@ -163,7 +173,7 @@
       },
       "status": "Status: %s | Bites: %s | Runtime: %s",
       "statusOff": "The bot is off. Start it with /angelbot or the toggle key.",
-      "usage": "Usage: /angelbot [on|off|status|spot|zone]",
+      "usage": "Usage: /angelbot [on|off|status|spot|zone|force]",
       "spot": {
         "usage": "Usage: /angelbot spot [add|list|remove <number>|clear]",
         "added": "Spot %s saved at %s / %s / %s (with your viewing direction).",

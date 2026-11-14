@@ -137,7 +137,17 @@
       "started": "Gestartet. Halte eine Angel in der Hand.",
       "alreadyRunning": "Der Bot läuft bereits.",
       "addonDisabled": "Das Addon ist in den Einstellungen ausgeschaltet.",
-      "notPermitted": "Dieser Server hat den Angelbot nicht erlaubt. Er braucht die Berechtigung \"angelbot\" (LabyMod-Server-API): Der Server kann sie aktivieren, oder du schaltest sie selbst in den LabyMod-Einstellungen bei den Server-Funktionen ein, auf eigenes Risiko.",
+      "notPermitted": "Dieser Server hat den Angelbot nicht erlaubt. Er braucht die Berechtigung \"angelbot\" (LabyMod-Server-API): Der Server kann sie aktivieren, oder du schaltest sie selbst mit /angelbot force ein, auf eigenes Risiko.",
+      "walkBlocked": {
+        "off": "Laufen nicht möglich: Die Einstellung \"Zur nächsten Stelle laufen\" ist ausgeschaltet.",
+        "noRadius": "Laufen nicht möglich: Der Radius des erlaubten Bereichs ist 0. Stelle in den Einstellungen einen Radius ein.",
+        "noCenter": "Laufen nicht möglich: Kein Mittelpunkt. Stell dich in die Mitte und gib /angelbot zone set ein.",
+        "cannotMove": "Laufen gerade nicht möglich (ein Bildschirm ist offen oder der Spieler kann sich nicht bewegen).",
+        "noWorld": "Laufen nicht möglich: Die Welt um dich ist nicht geladen.",
+        "fewSpots": "Laufen nicht möglich: Es braucht mindestens zwei gespeicherte Stellen (/angelbot spot add)."
+      },
+      "forced": "Berechtigung für diesen Server eingeschaltet. Viele Server verbieten Bots und du kannst gebannt werden: Nutzung auf eigenes Risiko. Starte den Bot noch einmal.",
+      "forceFailed": "Die Berechtigung ließ sich nicht einschalten (zum Beispiel hat der Server sie gesperrt).",
       "notInGame": "Du musst zuerst eine Welt betreten.",
       "noRod": "Halte eine Angel in der Haupt- oder Nebenhand.",
       "paused": "Pausiert: Ein Bildschirm ist offen. Tipp: Mit F3+P pausiert Minecraft nicht mehr beim Fensterwechsel.",
@@ -163,7 +173,7 @@
       },
       "status": "Status: %s | Bisse: %s | Laufzeit: %s",
       "statusOff": "Der Bot ist aus. Starte ihn mit /angelbot oder der Taste.",
-      "usage": "Benutzung: /angelbot [on|off|status|spot|zone]",
+      "usage": "Benutzung: /angelbot [on|off|status|spot|zone|force]",
       "spot": {
         "usage": "Benutzung: /angelbot spot [add|list|remove <Nummer>|clear]",
         "added": "Stelle %s gespeichert bei %s / %s / %s (mit deiner Blickrichtung).",

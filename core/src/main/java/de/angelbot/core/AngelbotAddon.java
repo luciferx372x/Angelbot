@@ -10,6 +10,7 @@ import de.angelbot.core.listener.AngelbotTickListener;
 import java.util.Random;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.models.addon.annotation.AddonMain;
+import net.labymod.api.user.permission.ClientPermission;
 
 /** Hauptklasse des Angelbots. Sie verbindet Einstellungen, Bot-Logik und Spielzugriff. */
 @AddonMain
@@ -77,6 +78,25 @@ public class AngelbotAddon extends LabyAddon<AngelbotConfiguration> {
    */
   public boolean isPermitted() {
     return this.labyAPI().permissionRegistry().isPermissionEnabled(PERMISSION);
+  }
+
+  /**
+   * Schaltet die Berechtigung für den aktuellen Server selbst ein (wie "Force enable" in den
+   * LabyMod-Einstellungen). Gibt false zurück, wenn das nicht möglich ist.
+   */
+  public boolean forcePermission() {
+    ClientPermission permission = this.labyAPI().permissionRegistry().getPermission(PERMISSION);
+    if (permission == null || !permission.isCanForceEnable()) {
+      return false;
+    }
+
+    try {
+      permission.setEnabled(true);
+    } catch (IllegalStateException exception) {
+      this.logger().warn("Could not force the permission: " + exception.getMessage());
+      return false;
+    }
+    return this.isPermitted();
   }
 
   /** Eine Meldung des Servers (Chat oder Aktionsleiste) ist eingetroffen. */

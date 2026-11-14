@@ -32,7 +32,11 @@ public final class Walker {
   static final float ALIGN_TURN = 12.0F;
   static final float ALIGN_PITCH = 6.0F;
   /** Es wird erst gelaufen, wenn der Blick höchstens so weit von der Laufrichtung abweicht. */
-  static final float FORWARD_TOLERANCE = 30.0F;
+  static final float FORWARD_TOLERANCE = 45.0F;
+  /** Kleinste Drehung je Tick, damit das Abbremsen der Drehung nicht ewig dauert. */
+  static final float MIN_TURN = 1.5F;
+  /** Wie stark kurz vor einem Zwischenziel schon zum nächsten geschaut wird (0 bis 1). */
+  static final double LOOKAHEAD = 0.4D;
   /** Ein Zwischenziel gilt als erreicht, wenn der Spieler so nah an seiner Mitte ist (in Blöcken). */
   static final double REACH = 0.35D;
   static final double ARRIVE = 0.30D;
@@ -186,9 +190,20 @@ public final class Walker {
     float turn = 0.0F;
     float remaining = 0.0F;
     if (distance > 0.05D) {
-      float desired = (float) Math.toDegrees(Math.atan2(-dx, dz));
+      // Kurz vor einem Zwischenziel schon etwas zum nächsten schauen: weichere Kurven.
+      double aimDx = dx;
+      double aimDz = dz;
+      if (this.index < last) {
+        int[] next = this.path.get(this.index + 1);
+        double nextX = this.index + 1 == last ? this.goalX : next[0] + 0.5D;
+        double nextZ = this.index + 1 == last ? this.goalZ : next[2] + 0.5D;
+        double weight = Math.max(0.0D, 1.0D - distance) * LOOKAHEAD;
+        aimDx = dx + weight * ((nextX - px) - dx);
+        aimDz = dz + weight * ((nextZ - pz) - dz);
+      }
+      float desired = (float) Math.toDegrees(Math.atan2(-aimDx, aimDz));
       float difference = wrap(desired - yaw);
-      turn = Math.max(-MAX_TURN, Math.min(MAX_TURN, difference));
+      turn = ease(difference, MAX_TURN, MIN_TURN);
       remaining = Math.abs(difference - turn);
       this.move.setLook(wrap(yaw + turn), this.move.pitch());
     }
@@ -204,6 +219,16 @@ public final class Walker {
     this.move.setMovement(forward, jump);
     this.lastForward = forward;
     return Status.WALKING;
+  }
+
+  /**
+   * Weiche Drehung: Ein Teil des Restwinkels je Tick (schnell am Anfang, langsam am Ende), höchstens
+   * {@code max}, mindestens {@code min}, nie über das Ziel hinaus.
+   */
+  static float ease(float difference, float max, float min) {
+    float size = Math.abs(difference);
+    float step = Math.min(max, Math.max(min, size * 0.3F));
+    return Math.copySign(Math.min(step, size), difference);
   }
 
   private boolean replan() {
@@ -224,8 +249,8 @@ public final class Walker {
     this.move.setMovement(false, false);
     float yawDifference = wrap(targetYaw - this.move.yaw());
     float pitchDifference = targetPitch - this.move.pitch();
-    float yawStep = Math.max(-ALIGN_TURN, Math.min(ALIGN_TURN, yawDifference));
-    float pitchStep = Math.max(-ALIGN_PITCH, Math.min(ALIGN_PITCH, pitchDifference));
+    float yawStep = ease(yawDifference, ALIGN_TURN, MIN_TURN);
+    float pitchStep = ease(pitchDifference, ALIGN_PITCH, 0.5F);
     this.move.setLook(wrap(this.move.yaw() + yawStep), this.move.pitch() + pitchStep);
     return Math.abs(yawDifference - yawStep) < 1.0F && Math.abs(pitchDifference - pitchStep) < 1.0F;
   }

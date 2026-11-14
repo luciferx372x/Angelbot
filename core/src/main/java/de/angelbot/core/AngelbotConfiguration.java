@@ -84,7 +84,7 @@ public class AngelbotConfiguration extends AddonConfig {
 
   @SettingSection("spots")
   @TextFieldSetting(maxLength = 200)
-  private final ConfigProperty<String> emptyMessages = new ConfigProperty<>("keine fische,no fish");
+  private final ConfigProperty<String> emptyMessages = new ConfigProperty<>("kaum noch fische,überfischt,keine fische,no fish");
 
   @SwitchSetting
   private final ConfigProperty<Boolean> walkToNextSpot = new ConfigProperty<>(false);

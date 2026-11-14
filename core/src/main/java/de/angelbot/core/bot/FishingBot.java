@@ -746,14 +746,22 @@ public final class FishingBot {
 
     int radius = this.settings.zoneRadius();
     List<Spot> spots = this.spots();
-    boolean canWalk =
-        this.settings.walkToNextSpot()
-            && radius > 0
-            && this.settings.hasZoneCenter()
-            && this.movement.canMove()
-            && this.movement.world() != null
-            && spots.size() >= 2;
-    if (!canWalk) {
+    String blocked = null;
+    if (!this.settings.walkToNextSpot()) {
+      blocked = "off";
+    } else if (radius <= 0) {
+      blocked = "noRadius";
+    } else if (!this.settings.hasZoneCenter()) {
+      blocked = "noCenter";
+    } else if (!this.movement.canMove()) {
+      blocked = "cannotMove";
+    } else if (this.movement.world() == null) {
+      blocked = "noWorld";
+    } else if (spots.size() < 2) {
+      blocked = "fewSpots";
+    }
+    if (blocked != null) {
+      this.events.walkBlocked(blocked);
       this.stop(StopReason.SPOT_EMPTY);
       return;
     }

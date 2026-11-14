@@ -45,6 +45,9 @@ public interface BotEvents {
   /** Der Server hat gemeldet, dass die Stelle leer ist. */
   default void spotEmpty() {}
 
+  /** Der Bot kann nicht zu einer anderen Stelle laufen; {@code reason} nennt den fehlenden Punkt. */
+  default void walkBlocked(String reason) {}
+
   /** Der Bot läuft los zur Stelle mit dieser Nummer (ab 1). */
   default void walkStarted(int spotNumber, int spotCount) {}
 

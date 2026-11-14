@@ -1,14 +1,18 @@
 # Changelog
 
-## 1.0.3
+## 1.1.0
 
-- The "Enabled" switch is now linked to the permission `angelbot`, so the permission can be switched on
-  with a right click on that setting ("Force enable"). In 1.0.2 there was no setting to click.
-
-## 1.0.2
-
-- The permission `angelbot` can now be switched on by the player in the LabyMod settings (server
-  features), at their own risk. It stays off by default and servers can still enable it.
+- New command `/angelbot force`: switches the permission `angelbot` on for the current server, at your own
+  risk (same effect as "Force enable" in the settings). The permission can be forced by the player, it is
+  still off by default and servers can enable it.
+- The "Enabled" switch is linked to the permission `angelbot`, so "Force enable" is also available with a
+  right click on that setting.
+- When the bot cannot walk to another spot, it now says why (switch off, no radius, no center, too few
+  spots, ...).
+- Walking looks smoother: turns slow down smoothly instead of at a fixed speed, the bot looks a little
+  toward the next waypoint before a corner and walks while still finishing a turn.
+- The default texts for "spot is empty" now also match "kaum noch Fische" and "überfischt" (an already
+  saved text is kept, change it in the settings).
 
 ## 1.0.1
 

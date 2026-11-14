@@ -87,6 +87,11 @@ final class BotMessages implements BotEvents {
   }
 
   @Override
+  public void walkBlocked(String reason) {
+    this.show("angelbot.messages.walkBlocked." + reason);
+  }
+
+  @Override
   public void walkStarted(int spotNumber, int spotCount) {
     this.addon.logger().info("Walking to spot " + spotNumber + " of " + spotCount);
     this.push(

@@ -41,6 +41,7 @@ Erscheint das Addon nach einem Neustart nicht in der Liste, liegt die Jar meist 
 | `/angelbot` | Startet oder stoppt den Bot |
 | `/angelbot on`, `/angelbot off` | Startet oder stoppt den Bot |
 | `/angelbot status` | Zustand, Bisse und Laufzeit |
+| `/angelbot force` | Schaltet die Berechtigung `angelbot` für den aktuellen Server ein, auf eigenes Risiko (siehe Server-Berechtigung) |
 | `/angelbot spot add` | Speichert den Ort, an dem du stehst, mit deiner Blickrichtung als Angelstelle |
 | `/angelbot spot list`, `spot remove <Nummer>`, `spot clear` | Zeigt, entfernt oder leert die gespeicherten Stellen |
 | `/angelbot zone set` | Setzt den Mittelpunkt des erlaubten Bereichs auf den Ort, an dem du stehst |
@@ -80,7 +81,7 @@ Einstellungen → Addons → Angelbot.
 | Essen bei Hungerwert | 14 | Der Bot isst bei diesem Hungerwert (20 = satt) oder darunter |
 | Erlaubtes Essen | übliches, sicheres Essen | Namen der Gegenstände, durch Komma getrennt, das Beste zuerst |
 | Radius des erlaubten Bereichs | 0 (aus) | Der Bot stoppt, wenn du weiter als das vom Mittelpunkt des Bereichs entfernt bist |
-| Chattext: Stelle ist leer | `keine fische,no fish` | Eine Servermeldung mit einem dieser Texte bedeutet: Die Stelle ist leer |
+| Chattext: Stelle ist leer | `kaum noch fische,überfischt,keine fische,no fish` | Eine Servermeldung mit einem dieser Texte bedeutet: Die Stelle ist leer |
 | Zur nächsten Stelle laufen | aus | Läuft bei leerer Stelle zur nächsten gespeicherten Stelle |
 | Leere Stelle ruht | 10 Min. | So lange wird eine als leer gemeldete Stelle nicht wieder besucht |
 | Bissschwelle | 15 | Sinkgeschwindigkeit des Schwimmers (Hundertstel Blöcke pro Tick), ab der es als Biss zählt |
