@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3
+
+- The "Enabled" switch is now linked to the permission `angelbot`, so the permission can be switched on
+  with a right click on that setting ("Force enable"). In 1.0.2 there was no setting to click.
+
 ## 1.0.2
 
 - The permission `angelbot` can now be switched on by the player in the LabyMod settings (server

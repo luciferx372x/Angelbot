@@ -7,6 +7,7 @@ import net.labymod.api.client.gui.screen.widget.widgets.input.SliderWidget.Slide
 import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.TextFieldWidget.TextFieldSetting;
 import net.labymod.api.configuration.loader.annotation.ConfigName;
+import net.labymod.api.configuration.loader.annotation.PermissionRequired;
 import net.labymod.api.configuration.loader.property.ConfigProperty;
 import net.labymod.api.configuration.settings.annotation.SettingSection;
 
@@ -23,6 +24,9 @@ public class AngelbotConfiguration extends AddonConfig {
           + "cooked_rabbit,bread,baked_potato,pumpkin_pie,rabbit_stew,mushroom_stew,beetroot_soup,"
           + "golden_carrot,carrot,apple,melon_slice,sweet_berries,dried_kelp,cookie,beetroot";
 
+  // Verknüpft den Schalter mit der Server-Berechtigung "angelbot": Auf einem Server ohne Erlaubnis ist
+  // er gesperrt, per Rechtsklick lässt sich die Berechtigung dort selbst einschalten ("Force enable").
+  @PermissionRequired(AngelbotAddon.PERMISSION)
   @SwitchSetting
   private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(true);
 
