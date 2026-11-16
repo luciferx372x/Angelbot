@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "angelbot",
+  "version": "${version}",
+  "name": "Angelbot",
+  "description": "Fishes for you: detects the bite, reels in, casts again. Spare rods, eating, allowed area and walking to the next spot. Commands: /angelbot, /angelbot config.",
+  "authors": ["luciferx372x"],
+  "contact": {
+    "sources": "https://github.com/luciferx372x/Angelbot"
+  },
+  "license": "MIT",
+  "icon": "assets/angelbot/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["de.angelbot.fabric.AngelbotClient"]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.0",
+    "minecraft": "${mc_range}",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}
